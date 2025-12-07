@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      margin: 0;
+      background-color: #121212;
+      color: white;
+    }
+    #canvas-container {
+      width: 100vw;
+      height: 100%;
+      overflow: auto;
+    }
+    #canvas-container::-webkit-scrollbar {
+      display: none;
+    }
+    canvas {
+      display: block;
+      margin: auto;
+      background-color: #121212;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.min.js"></script>
+</head>
+<body>
+  <div id="canvas-container"></div>
+  <script>
+    // Obtener el parámetro "pdf" de la URL
+    const params = new URLSearchParams(window.location.search);
+    const url = params.get('pdf');
+
+    if (!url) {
+      document.body.innerHTML = "<h3 style='color:white;text-align:center;'>No se especificó un PDF</h3>";
+      throw new Error("PDF URL no especificada");
+    }
+
+    const container = document.getElementById('canvas-container');
+    const pdfjsLib = window['pdfjs-dist/build/pdf'];
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.worker.min.js';
+
+    pdfjsLib.getDocument(url).promise.then(pdf => {
+      for(let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+        pdf.getPage(pageNum).then(page => {
+          const viewport = page.getViewport({ scale: 1.5 });
+          const canvas = document.createElement('canvas');
+          const context = canvas.getContext('2d');
+          canvas.height = viewport.height;
+          canvas.width = viewport.width;
+
+          container.appendChild(canvas);
+
+          const renderContext = {
+            canvasContext: context,
+            viewport: viewport
+          };
+
+          page.render(renderContext).promise.then(() => {
+            context.globalCompositeOperation = 'difference';
+            context.fillStyle = 'white';
+            context.fillRect(0, 0, canvas.width, canvas.height);
+          });
+        });
+      }
+    });
+  </script>
+</body>
+</html>
