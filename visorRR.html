@@ -147,8 +147,8 @@ body {
   <style>
     :root {
         --bg-primary: #429ad1;
-        --bg-card: black;
-        --bg-hover: ffffff;
+        --bg-card: white;
+        --bg-hover: white;
         --border-subtle: rgba(15, 23, 42, 0.08);
         --text-primary: #0f172a;
         --text-secondary: #64748b;
@@ -174,7 +174,7 @@ body {
     
     /* ===== Card ===== */
     .Tile {
-      background: var(--bg-card);
+      background: var(--bg-card) !important;
       border-radius: var(--radius);
       border: 1px solid var(--border-subtle);
       box-shadow: var(--shadow-soft);
@@ -187,13 +187,13 @@ body {
     .Tile:hover {
       transform: translateY(-3px);
       box-shadow: 0 12px 40px rgba(15, 23, 42, 0.12);
-      border-color: rgba(37, 99, 235, 0.25);
+      border-color: rgba(37, 99, 235, 0.25) !important;
     }
     
     /* ===== Header ===== */
     .TileHead {
         padding: 20px 18px !important;
-        border-bottom: 1px solid var(--border-subtle);
+        border-bottom: 1px solid var(--border-subtle) !important;
         background-color: var(--bg-primary) !important;
     }
     
@@ -227,7 +227,7 @@ body {
     }
     
     .TilesList tr:not(:last-child) {
-      border-bottom: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle) !important;
     }
     
     .TilesList tr:hover {
@@ -257,14 +257,14 @@ body {
     
     /* ===== Text cell ===== */
     .TilesList td:last-child {
-      font-size: 24px !important;
+      font-size: 18 px !important;
       font-weight: 500 !important;
-      color: var(--text-secondary);
+      color: var(--text-secondary) !important;
       transition: color var(--transition-fast);
     }
     
     .TilesList tr:hover td:last-child {
-      color: var(--accent);
+      color: var(--accent) !important;
     }
     
     /* ===== Accessibility ===== */
