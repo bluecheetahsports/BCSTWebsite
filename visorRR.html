@@ -44,8 +44,8 @@ body {
     const idrr = Number(params.get('idrr'));
 
     if (!idrr) {
-      document.body.innerHTML = "<h3 style='color:white; text-align:center; margin-top: 20px;'>No se especificó ID de RaceResult</h3>";
-      throw new Error("idrr no especificado");
+      document.body.innerHTML = "<h3 style='color:white; text-align:center; margin-top: 20px;'>Results not available yet!</h3>";
+      throw new Error("idrr from raca result no specified");
     }
 
     // Inicializar el widget con el id dinámico
